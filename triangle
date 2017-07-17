@@ -1,34 +1,48 @@
-##Setup##
+	##Setup##
 f = open("/share/data/day5/puzzle.txt")
-fragments = []
-
-##Put things in list##
+fragments = ""
+matches = 0
+overlap = 15
+offset = -99
+beginning = [0:overlap]
+end = [overlap:offset]
+#Put things in list##
 lines = f.readlines()
 for line in lines:
 	y = line.split()
 	for x in y:
-		fragments.append(x)
-
+		fragments = fragments + x
+	   
 ##Get original letters##
 original = fragments[0]
-for fragment in fragments:
+while overlap > 0:
+	add = True
+	while add:
+		for fragment in fragments:
 
 ##Position variables##
-	beginning = original[0:2]
-	beginning2 = original[0]
-	end = original[len(original)-1:len(original)-3]
-	end2 = original[len(original)-1]
+			beginning = original[0:2]
+			beginning2 = original[0]
+			end = original[len(original)-1:len(original)-3]
+			end2 = original[len(original)-1]
 
 ##Remove duplicate letters from the fragments and add fragments to original##
-	if beginning in fragment:
-		fragment -= beginning
-	while beginning2 in fragment:
-		fragment -= beginning2
-		original = fragment + original
-
-		if end in fragment:
-			fragment -= end
-while end2 in fragment:
-fragment -= end2
-original = original + fragment
+			if fragment in original:
+				del fragment
+				matches = matches + 1 
+			elif beginning in fragment:
+				original = original + fragment[beginning:original]
+				del fragment
+				matches = matches + 1
+			elif end in fragment:
+				original = original + fragment[original:end]
+				del fragment
+		overlap = overlap - 1
+		if matches > 0:
+			matches = 0
+		elif matches == 0:
+			add = False
+			overlap -= 1
 print(original)
+
+
