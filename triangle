@@ -1,0 +1,34 @@
+##Setup##
+f = open("/share/data/day5/puzzle.txt")
+fragments = []
+
+##Put things in list##
+lines = f.readlines()
+for line in lines:
+	y = line.split()
+	for x in y:
+		fragments.append(x)
+
+##Get original letters##
+original = fragments[0]
+for fragment in fragments:
+
+##Position variables##
+	beginning = original[0:2]
+	beginning2 = original[0]
+	end = original[len(original)-1:len(original)-3]
+	end2 = original[len(original)-1]
+
+##Remove duplicate letters from the fragments and add fragments to original##
+	if beginning in fragment:
+		fragment -= beginning
+	while beginning2 in fragment:
+		fragment -= beginning2
+		original = fragment + original
+
+		if end in fragment:
+			fragment -= end
+while end2 in fragment:
+fragment -= end2
+original = original + fragment
+print(original)
