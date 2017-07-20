@@ -55,6 +55,6 @@ for fragment in fragments:
 	if fragment in original:
 		blah += 1
 if blah == 325:
-	print("It works!")
+	print("Full")
 else:
-	print("Boohoo :(") 
+	print("True") 
